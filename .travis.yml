@@ -5,15 +5,14 @@ before_install:
     - docker build -t chiran/docker-react -f Dockerfile.dev .
 
 script:
-    - docker run chiran/docker-react npm run test -- --coverage
-
+    - docker run -e CI=true chiran/docker-react npm run test
 deploy:
     provider: elasticbeanstalk
-    region: ""
+    region: "us-east-2"
     app: "docker-aws"
-    env: ""
-    bucket_name: ""
-    bucket_path: ""
+    env: "DockerAws-env"
+    bucket_name: "elasticbeanstalk-us-east-2-200045631441"
+    bucket_path: "docker"
     on:
         branch: master
     accerss_key_id: $AWS_ACCESS_KEY
